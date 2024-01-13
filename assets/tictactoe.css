@@ -1,0 +1,47 @@
+html {
+    
+}
+
+body {
+    background-color: darkslateblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#main-menu {
+    text-align: center;
+    margin: auto;
+    padding: auto;
+}
+
+.game-menu-title {
+    color: white;
+    font-size: 128px;
+}
+
+ {}
+#game-startbuttonBtn {
+    display: inline-block;
+    background-color: green;
+    font-size: 32px;
+    padding: 10px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+
+#main-game {
+    display: none;
+}
+/*
+.game-preferencesbutton {
+
+}
+
+.game-player-x {
+
+}
+
+.game-player-o {
+    
+}
+*/
