@@ -4,30 +4,60 @@
 	<meta charset="UTF-8" />
     <meta name="viewport" context="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/tictactoe.css">
-    <script src="assets/tictactoe.js"></script>
 	<title>Tic-Tac-Toe</title>
 </head>
 <body>
     <div id="main-menu">
         <h1 class="game-menu-title">TIC TAC TOE</h1>
+        <p id="game-menu-description">This HTML-based Tic Tac Toe game is powered by JavaScript and CSS.<br><br>made by Cosmin Irina</p>
         <button id="game-startbuttonBtn" onclick="startGame()">Start Game</button>
     </div>
 
-    <div id="main-game">
-        <div id="cells">
-            <div index="0" class="cell">d</div>
-            <div index="1" class="cell"></div>
-            <div index="2" class="cell"></div>
-            <div index="3" class="cell"></div>
-            <div index="4" class="cell"></div>
-            <div index="5" class="cell"></div>
-            <div index="6" class="cell"></div>
-            <div index="7" class="cell"></div>
-            <div index="8" class="cell"></div>
+    <div id="playerselection-menu">
+        <div class="selection-title">
+            <h1>Before proceeding...<br>please select a symbol</h1>
+            <button id="player-XBtn" onclick="playerSelect('X')">X</button>
+            <button id="player-OBtn" onclick="playerSelect('O')">O</button>
         </div>
-        <h2 id="status"></h2>
-        <button id="ResetBtn">Restart</button>
     </div>
+    <div id="main-game">
+        <h2 id="playerTurn"></h2>
+        <div id="cells">
+            <div class="cell" index="0"></div>
+            <div class="cell" index="1"></div>
+            <div class="cell" index="2"></div>
+            <div class="cell" index="3"></div>
+            <div class="cell" index="4"></div>
+            <div class="cell" index="5"></div>
+            <div class="cell" index="6"></div>
+            <div class="cell" index="7"></div>
+            <div class="cell" index="8"></div>
+        </div>
+        <div id="game-scoreboard">
+            <div class="scoreboard-title">Game Scoreboard</div>
+            <br>
+            <div id="game-scores-container">
+                <div id="game-scores">
+                    <span class="playerX-label">Player X:</span>
+                    <span class="playerX-points">0</span>
+                    <br>
+                </div>
+                <div id="game-scores">
+                    <span class="playerO-label">Player O:</span>
+                    <span class="playerO-points">0</span>
+                    <br>
+                </div>
+                <div id="game-scores">
+                    <span class="draws-label">Draws:</span>
+                    <span class="draws-points">0</span>
+                </div>
+            </div>
+        </div>
+        <div id="game-buttons">
+            <button class="game-resetBtn">Restart</button>
+            <button class="game-resetScoreBtn">Reset Scoreboard</button>
+        </div>
+    <script src="assets/tictactoe.js"></script>
 </body>
 
 </html>
