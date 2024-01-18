@@ -16,13 +16,13 @@
     <div id="playerselection-menu">
         <div class="selection-title">
             <h1>Before proceeding...<br>please select a symbol</h1>
-            <button id="player-XBtn" onclick="playerSelect('X')">X</button>
-            <button id="player-OBtn" onclick="playerSelect('O')">O</button>
+            <button id="player-XBtn" onclick="playerSelect('X')" onclick="clickGameAudio.play()">X</button>
+            <button id="player-OBtn" onclick="playerSelect('O')" onclick="clickGameAudio.play()">O</button>
         </div>
     </div>
     <div id="main-game">
         <h2 id="playerTurn"></h2>
-        <div id="cells">
+        <div id="cells" onclick="clickGameAudio.play()">
             <div class="cell" index="0"></div>
             <div class="cell" index="1"></div>
             <div class="cell" index="2"></div>
@@ -54,8 +54,8 @@
             </div>
         </div>
         <div id="game-buttons">
-            <button class="game-resetBtn">Restart</button>
-            <button class="game-resetScoreBtn">Reset Scoreboard</button>
+            <button class="game-resetBtn" onclick="clickGameAudio.play()">Restart</button>
+            <button class="game-resetScoreBtn" onclick="clickGameAudio.play()">Reset Scoreboard</button>
         </div>
     <script src="assets/tictactoe.js"></script>
 </body>

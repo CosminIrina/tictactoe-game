@@ -48,11 +48,22 @@ let playerOPoints = 0;
 let drawsPoints = 0;
 let running = false;
 
+//Initializing audio variables. All audio files have been created with Bosca Ceoil. (A free tool for creating music.)
+let clickGameAudio = new Audio();
+clickGameAudio.src = "./assets/audio/click.wav";
+
+let winGameAudio = new Audio();
+winGameAudio.src = "./assets/audio/wingame.wav";
+
+let drawGameAudio = new Audio ();
+drawGameAudio.src = "./assets/audio/drawgame.wav";
+
 /*------------*/
 
 //checking whether symbol is X or O before hiding the playerselection-menu and showing the main-game and game-scoreboard.
 function playerSelect(symbol) {
     if (symbol === 'X' || symbol === 'O') {
+        clickGameAudio.play();
         currentPlayer = symbol;
         hideScreen("playerselection-menu", false)
         hideScreen("main-game", true);
@@ -63,6 +74,7 @@ function playerSelect(symbol) {
 }
 
 function startGame() {
+    clickGameAudio.play();
     hideScreen("game-menu-description", false);
     hideScreen("game-startbuttonBtn", false);
     hideScreen("playerselection-menu", true);
@@ -85,7 +97,7 @@ function initializeGame() {
     running = true;
 }
 
-//Function checks whether the clicked cell in question is empty or not. If it's not empty or game is not running, function returns nothing. Otherwise, it calls the updateCell() and checkWinner() functions.
+//cellClicked() checks whether the clicked cell in question is empty or not. If it's not empty or game is not running, function returns nothing. Otherwise, it calls the updateCell() and checkWinner() functions.
 function cellClicked() {
     const cellIndex = this.getAttribute("index");
     if (playingField[cellIndex] != '' || !running) {
@@ -96,20 +108,21 @@ function cellClicked() {
 
 }
 
-//updateCell() takes two arguments/parameters, cell and index.
+//updateCell() takes two arguments/parameters, cell and index. Whatever cell gets clicked gets used as the arguments for this function and it iterates through the main-game board before updating it to have the currentPlayer symbol in it.
 function updateCell(cell, index) {
     playingField[index] = currentPlayer;
     cell.textContent = currentPlayer;
 
 }
 
+//changePlayer() simply checks whether currentPlayer is X by using a ternary operator. If currentPlayer is X change to O, otherwise change to X before displaying whose turn it is.
 function changePlayer() {
     currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
     statusText.textContent = `${currentPlayer}'s turn`
 
 }
 
-
+//checkWinner() checks when a player has won. It iterates through all winning moves with a for loop and then uses them to check whether the currentPlayer won or not.
 function checkWinner() {
     let playerWin = false;
 
@@ -129,20 +142,24 @@ function checkWinner() {
         }
     }
 
+    //if the player wins, it gets displayed and increments one point for the winner before stopping the game. If it's a draw, same concept. If none are true, the game is not finished and it changes the player.
     if (playerWin) {
         statusText.textContent = `${currentPlayer} wins!`;
         if (currentPlayer === 'X') {
             playerXPoints++
             playerXScore.textContent = `${playerXPoints}`;
+            winGameAudio.play();
         } else if (currentPlayer === 'O') {
             playerOPoints++
             playerOScore.textContent = `${playerOPoints}`;
+            winGameAudio.play();
         }
         running = false;
     } else if (!playingField.includes('')) {
         statusText.textContent = `Draw!`;
         drawsPoints++
         drawsScore.textContent = `${drawsPoints}`;
+        drawGameAudio.play();
         running = false;        
     }
     else {
@@ -150,6 +167,7 @@ function checkWinner() {
     }
 }
 
+//restartGame() resets the game by setting the playing field and cells back to being blank and running the game. 
 function restartGame() {
     playingField = ['', '', '', '', '', '', '', '', ''];
     statusText.textContent = `${currentPlayer}'s turn`;
@@ -157,6 +175,7 @@ function restartGame() {
     running = true;
 }
 
+//resetScoreboard() is like restartGame() except that it only resets the score variables back to 0.
 function resetScoreboard() {
     playerXPoints = 0;
     playerOPoints = 0;
