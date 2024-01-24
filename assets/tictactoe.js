@@ -1,8 +1,13 @@
 // Function to toggle the main menu, player selection and main-game HTML elements.
 function hideScreen(id, toggle) {
     let element = document.getElementById(id); //retrieves the HTML element that's passed into the "id" argument.
-    let display = toggle ? "block" : "none"; //uses the ternary (conditional) operator. It's a quicker way of writing an if-else statement.
-    element.style.display = display; //element.style.display gets assigned the value of display;
+
+    if (!element) {
+        console.log("This element with id '" + id + "' cannot be found.");
+    } else {
+        let display = toggle ? "block" : "none"; //uses the ternary (conditional) operator. It's a quicker way of writing an if-else statement.
+        element.style.display = display; //element.style.display gets assigned the value of display;
+    }
 }
 
 
@@ -42,29 +47,45 @@ const winningMoves = [
 
 //Initializing some variables for the main-game.
 let playingField = ['', '', '', '', '', '', '', '', ''];
+let currentGameMode = '';
 let currentPlayer = '';
+let computerPlayer = '';
 let playerXPoints = 0;
 let playerOPoints = 0;
 let drawsPoints = 0;
 let running = false;
 
 //Initializing audio variables. All audio files have been created with Bosca Ceoil. (A free tool for creating music.)
-let clickGameAudio = new Audio();
+const clickGameAudio = new Audio();
 clickGameAudio.src = "./assets/audio/click.wav";
 
-let winGameAudio = new Audio();
+const winGameAudio = new Audio();
 winGameAudio.src = "./assets/audio/wingame.wav";
 
-let drawGameAudio = new Audio ();
+const drawGameAudio = new Audio ();
 drawGameAudio.src = "./assets/audio/drawgame.wav";
 
 /*------------*/
+
+//checking whether gameMode is Player or Computer before hiding the gamemodeselection-menu and showing the playerselection-menu
+function gameModeSelect(gamemode) {
+    if (gamemode === 'Player' || gamemode === 'Computer') {
+        clickGameAudio.play();
+        currentGameMode = gamemode;
+        hideScreen("gamemodeselection-menu", false);
+        hideScreen("playerselection-menu", true);
+    }
+    return currentGameMode;
+}
 
 //checking whether symbol is X or O before hiding the playerselection-menu and showing the main-game and game-scoreboard.
 function playerSelect(symbol) {
     if (symbol === 'X' || symbol === 'O') {
         clickGameAudio.play();
         currentPlayer = symbol;
+        if (currentGameMode === 'Computer') {
+            computerPlayer = (symbol === 'X') ? 'O' : 'X';
+        }
         hideScreen("playerselection-menu", false)
         hideScreen("main-game", true);
         hideScreen("game-scoreboard", true)
@@ -77,7 +98,7 @@ function startGame() {
     clickGameAudio.play();
     hideScreen("game-menu-description", false);
     hideScreen("game-startbuttonBtn", false);
-    hideScreen("playerselection-menu", true);
+    hideScreen("gamemodeselection-menu", true);
 }
 
 
@@ -97,6 +118,44 @@ function initializeGame() {
     running = true;
 }
 
+/*
+
+    COMPUTER MODE [current Computer Mode is randomized.]
+
+*/
+
+
+function computerMove() {
+    const emptyCells = [];
+
+    for (let x = 0; x < playingField.length; x++) {
+        if (playingField[x] === '' && running) {
+            emptyCells.push(x);
+        }
+    }
+
+    if (emptyCells.length > 0) {
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const computerIndex = emptyCells[randomIndex];
+
+        setTimeout(() => {
+            updateCell(cells[computerIndex], computerIndex);
+            checkWinner();
+        }, 500);
+    }
+}
+
+
+
+/*
+  // computer marks a random EMPTY cell
+  random = Math.ceil(Math.random() * emptyCells.length) - 1;
+  emptyCells[random].textContent = mark;
+  checkRow();
+  switchMark();
+}
+*/
+
 //cellClicked() checks whether the clicked cell in question is empty or not. If it's not empty or game is not running, function returns nothing. Otherwise, it calls the updateCell() and checkWinner() functions.
 function cellClicked() {
     const cellIndex = this.getAttribute("index");
@@ -105,6 +164,10 @@ function cellClicked() {
     }
     updateCell(this, cellIndex);
     checkWinner();
+
+    if (currentGameMode === 'Computer' && running) {
+        computerMove();
+    }
 
 }
 
@@ -185,3 +248,4 @@ function resetScoreboard() {
     playerOScore.textContent = `${playerOPoints}`;
     drawsScore.textContent = `${drawsPoints}`;
 }
+

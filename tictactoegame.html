@@ -12,7 +12,13 @@
         <p id="game-menu-description">This HTML-based Tic Tac Toe game is powered by JavaScript and CSS.<br><br>made by Cosmin Irina</p>
         <button id="game-startbuttonBtn" onclick="startGame()">Start Game</button>
     </div>
-
+    <div id="gamemodeselection-menu">
+        <div class="selection-title">
+            <h1>Please select<br>your preferred gamemode.</h1>
+            <button id="playerBtn" onclick="gameModeSelect('Player')" onclick="clickGameAudio.play()"></button>
+            <button id="computerBtn" onclick="gameModeSelect('Computer')" onclick="clickGameAudio.play()"></button>
+        </div>
+    </div>
     <div id="playerselection-menu">
         <div class="selection-title">
             <h1>Before proceeding...<br>please select a symbol</h1>

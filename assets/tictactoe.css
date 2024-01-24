@@ -34,6 +34,51 @@ body {
     text-align: center;
 }
 
+/*
+    Gamemode-Selection
+*/
+
+
+#gamemodeselection-menu {
+    background-color: floralwhite;
+    display: none;
+    padding: 5px;
+    margin: 0 25%;
+    border: 2px solid gray;
+    border-radius: 8px;
+    box-shadow: 0 0 10px;
+    font-size: 25px;
+}
+
+#playerBtn {
+    display: inline-block;
+    background-image: url('textures/player.png');
+    background-color: red;
+    background-size: cover;
+    padding: 50px;
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    text-align: center;
+}
+
+#computerBtn {
+    display: inline-block;
+    background-image: url('textures/computer.png');
+    background-color: green;
+    background-size: cover;
+    padding: 50px;
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    text-align: center;
+}
+
+/*
+    Player-Selection
+*/
+
+
 #playerselection-menu {
     background-color: floralwhite;
     display: none;
@@ -44,6 +89,8 @@ body {
     box-shadow: 0 0 10px;
     font-size: 25px;
 }
+
+/* .selection-title is used for both the gamemodeselection-menu and the playerselection-menu */
 
 .selection-title {
     text-align: center;
@@ -66,6 +113,11 @@ body {
     margin: auto;
     text-align: center;
 }
+
+/*
+    main-game stuff
+*/
+
 
 #main-game {
     display: none;
